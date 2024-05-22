@@ -1,13 +1,46 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { PrimeIcons, MenuItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [MessageService]
+
 })
 export class AppComponent {
-  title = 'autotask';
+
+  constructor(private messageService: MessageService) {}
+
+  title = 'project-tip';
+  items: { label?: string; icon?: string; separator?: boolean }[] = [];
+  menu: MenuItem[] | undefined;
+
+  ngOnInit() {
+    console.log('ngOnInit');
+    this.items = [
+      {
+        label: 'Refresh',
+        icon: 'pi pi-refresh'
+      },
+      {
+        label: 'Search',
+        icon: 'pi pi-search'
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-times'
+      }
+    ];
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+}
+
 }
